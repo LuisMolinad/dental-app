@@ -1,6 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
+use App\Http\Controllers\RolController;
+use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\PacienteController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +23,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
-Route::get('/home', function() {
+Route::get('/home', function () {
     return view('home');
 })->name('home')->middleware('auth');
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('roles', RolController::class);
+    Route::resource('usuarios', UsuarioController::class);
+    Route::resource('pacientes', PacienteController::class);
+});
