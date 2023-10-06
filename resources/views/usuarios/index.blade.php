@@ -1,11 +1,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Control Usuarios')
-{{-- <link rel="stylesheet" href="{{ asset('css/botton.css') }}"> --}}
-<link rel="stylesheet" href="{{ asset('css/notificacion.css') }}">
-{{-- Necesario para la animación de las tablas --}}
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-{{-- <link rel="shortcut icon" href="{{ asset('./img/LOGO-PLUS-CHEMICAL-CORREO-01.png') }}"> --}}
+
 @section('content_header')
 
     <h1>Control de Usuarios </h1>
@@ -14,6 +10,7 @@
 
 
 @section('content')
+
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -111,6 +108,14 @@
 
                 },
             });
+            // Verifica si existe un mensaje Toastr en la sesión
+            var toastrMessage = @json(session('toastr'));
+
+            if (toastrMessage) {
+                // Muestra la notificación Toastr con el estilo adecuado
+                toastr[toastrMessage.type](toastrMessage.message);
+            }
+
         });
     </script>
 @stop

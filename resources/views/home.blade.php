@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-
+@section('plugins.Toastr', true)
 @section('title', 'AdminLTE')
 
 @section('content_header')

@@ -80,8 +80,10 @@ class UsuarioController extends Controller
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
         //enviar correo de verificacion al usuario creado
-        event(new Registered($user));
-        return redirect()->route('usuarios.index')->with('success', 'USUARIO CREADO CORRECTAMENTE');
+        /*   event(new Registered($user)); */
+        // Almacena un mensaje en la sesión
+        session()->flash('toastr', ['message' => 'Usuario creado exitosamente', 'type' => 'success']);
+        return redirect()->route('usuarios.index');
     }
 
     /**
