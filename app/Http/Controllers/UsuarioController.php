@@ -140,7 +140,9 @@ class UsuarioController extends Controller
         DB::table('model_has_roles')->where('model_id', $id)->delete();
 
         $user->assignRole($request->input('roles'));
-        return redirect()->route('usuarios.index')->with('warning', 'USUARIO EDITADO CORRECTAMENTE');;
+        //Mensaje
+        session()->flash('toastr', ['message' => 'Usuario editado exitosamente', 'type' => 'warning']);
+        return redirect()->route('usuarios.index');
     }
 
     /**
@@ -152,8 +154,8 @@ class UsuarioController extends Controller
     public function destroy($id)
     {
         $test = User::find($id)->delete();
-
-        return redirect()->route('usuarios.index')->with('danger', 'USUARIO ELIMINADO CORRECTAMENTE');
+        session()->flash('toastr', ['message' => 'Usuario eliminado exitosamente', 'type' => 'error']);
+        return redirect()->route('usuarios.index');
         //return redirect()->action([UsuarioController::class, 'index']);
     }
 }

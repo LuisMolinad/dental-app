@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Gestion Roles')
-
+<link rel="shortcut icon" href="{{ asset('./img/icono1.png') }}">
 @section('content_header')
     <h1 class="m-0 text-dark">Gestion Roles</h1>
 @stop

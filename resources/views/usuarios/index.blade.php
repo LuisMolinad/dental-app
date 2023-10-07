@@ -1,6 +1,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Control Usuarios')
+<link rel="shortcut icon" href="{{ asset('./img/icono1.png') }}">
 
 @section('content_header')
 

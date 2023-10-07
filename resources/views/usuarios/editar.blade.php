@@ -1,4 +1,5 @@
 @extends('adminlte::page')
+<link rel="shortcut icon" href="{{ asset('./img/icono1.png') }}">
 
 @section('title', 'Editar Usuario')
 <link rel="stylesheet" href="{{ asset('css/botton.css') }}">

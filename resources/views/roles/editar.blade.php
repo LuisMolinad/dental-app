@@ -1,6 +1,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Editar Rol')
+<link rel="shortcut icon" href="{{ asset('./img/icono1.png') }}">
 
 @section('content_header')
     <h1 class="m-0 text-dark">Editar Rol</h1>
