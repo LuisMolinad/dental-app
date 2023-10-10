@@ -24,13 +24,13 @@ Route::get('/', function () {
 });
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
-Route::get('/home', function () {
-    return view('home');
-})->name('home')->middleware('auth');
+Route::get('/calendar', function () {
+    return view('calendar');
+})->name('homeCalendar')->middleware('auth');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('roles', RolController::class);

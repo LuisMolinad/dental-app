@@ -153,7 +153,7 @@ class UsuarioController extends Controller
      */
     public function destroy($id)
     {
-        $test = User::find($id)->delete();
+        User::find($id)->delete();
         session()->flash('toastr', ['message' => 'Usuario eliminado exitosamente', 'type' => 'error']);
         return redirect()->route('usuarios.index');
         //return redirect()->action([UsuarioController::class, 'index']);

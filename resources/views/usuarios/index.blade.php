@@ -1,8 +1,9 @@
 @extends('adminlte::page')
 
 @section('title', 'Control Usuarios')
+@section('plugins.Sweetalert2', true)
 <link rel="shortcut icon" href="{{ asset('./img/icono1.png') }}">
-
+<script src="{{ asset('js/eliminar_sweetalert2.js') }}"></script>
 @section('content_header')
 
     <h1>Control de Usuarios </h1>
@@ -61,8 +62,6 @@
                                                     <button
                                                         onclick="return alerta_eliminar_usuario('{{ $usuario->id }}','{{ $usuario->name }}')"
                                                         type="submit" class="btn btn-danger btn-eliminar">Eliminar</button>
-
-
                                                 </form>
 
                                             </div>

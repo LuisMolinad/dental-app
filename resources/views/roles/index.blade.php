@@ -2,6 +2,7 @@
 
 @section('title', 'Gestion Roles')
 <link rel="shortcut icon" href="{{ asset('./img/icono1.png') }}">
+<script src="{{ asset('js/eliminar_sweetalert2.js') }}"></script>
 @section('content_header')
     <h1 class="m-0 text-dark">Gestion Roles</h1>
 @stop
@@ -60,7 +61,7 @@
     </div>
 @stop
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+
 @stop
 
 @section('js')
