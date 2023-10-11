@@ -15,7 +15,7 @@ return [
     */
 
     'title' => 'Dental App V 0.3',
-    'title_prefix' => '',
+    'title_prefix' => 'Dental-App:',
     'title_postfix' => '',
 
     /*
@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>Dental</b>-App',
     'logo_img' => './img/icono1.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -253,7 +253,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'calendar',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -291,18 +291,18 @@ return [
 
     'menu' => [
         // Navbar items:
-        [
+        /*    [
             'type'         => 'navbar-search',
             'text'         => 'search',
             'topnav_right' => true,
-        ],
+        ], */
         [
             'type'         => 'fullscreen-widget',
             'topnav_right' => true,
         ],
 
         // Sidebar items:
-        [
+        /* [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
         ],
@@ -310,17 +310,17 @@ return [
             'text' => 'blog',
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
-        ],
-        [
+        ], */
+        /*  [
             'text'        => 'pages',
             'url'         => 'admin/pages',
             'icon'        => 'far fa-fw fa-file',
             'label'       => 4,
             'label_color' => 'success',
-        ],
+        ], */
         ['header' => 'account_settings'],
         [
-            'text' => 'profile',
+            'text' => 'Pacientes',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',
         ],
@@ -420,6 +420,7 @@ return [
     */
 
     'plugins' => [
+
         'Datatables' => [
             'active' => false,
             'files' => [
@@ -500,18 +501,19 @@ return [
                 ],
             ],
         ],
-        'Pace' => [
-            'active' => false,
+        //Si pongo true en active es para que cargue por defecto en todas las vistas
+        'Bootstrap' => [
+            'active' => true,
             'files' => [
                 [
-                    'type' => 'css',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-center-radar.min.css',
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '//cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js',
                 ],
                 [
-                    'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css',
                 ],
             ],
         ],
@@ -522,13 +524,19 @@ return [
                 [
                     'type' => 'js',
                     'asset' => true,
-                    'location' => '//cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.js',
+                    'location' => '//cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.9/index.global.min.js',
                 ],
+                // Interaction plugin.
                 [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '//cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.9/index.global.min.js',
+                ],
+                /*  [
                     'type' => 'css',
                     'asset' => true,
                     'location' => '//cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.css',
-                ],
+                ], */
                 // Daygrid plugin.
                 [
                     'type' => 'js',
@@ -540,22 +548,30 @@ return [
                     'asset' => true,
                     'location' => '//cdn.jsdelivr.net/npm/@fullcalendar/daygrid@5.11.5/main.min.css',
                 ],
-                // Bootstrap 5 plugin.
+                // Timegrid plugin.
                 [
                     'type' => 'js',
                     'asset' => true,
-                    'location' => '//cdn.jsdelivr.net/npm/@fullcalendar/bootstrap5@5.11.5/index.global.min.js',
+                    'location' => '//cdn.jsdelivr.net/npm/@fullcalendar/timegrid@6.1.9/index.global.min.js',
                 ],
                 [
                     'type' => 'css',
                     'asset' => true,
-                    'location' => '//cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css',
+                    'location' => '//cdn.jsdelivr.net/npm/@fullcalendar/timegrid@5.11.5/main.min.css',
+                ],
+                // Bootstrap 4 plugin.
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '//cdn.jsdelivr.net/npm/@fullcalendar/bootstrap@6.1.9/index.global.min.js',
                 ],
                 [
                     'type' => 'css',
                     'asset' => true,
-                    'location' => '//cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css',
+                    'location' => '//cdn.jsdelivr.net/npm/@fullcalendar/bootstrap@5.11.5/main.min.css',
                 ],
+
+
             ],
         ],
 
