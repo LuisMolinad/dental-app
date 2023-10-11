@@ -150,9 +150,9 @@ return [
 
     'layout_topnav' => false,
     'layout_boxed' => false,
-    'layout_fixed_sidebar' => null,
+    'layout_fixed_sidebar' => true,
     'layout_fixed_navbar' => null,
-    'layout_fixed_footer' => null,
+    'layout_fixed_footer' => true,
     'layout_dark_mode' => null,
 
     /*
@@ -515,6 +515,51 @@ return [
                 ],
             ],
         ],
+        'FullCalendar' => [
+            'active' => false,
+            'files' => [
+                // Core
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '//cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '//cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.css',
+                ],
+                // Daygrid plugin.
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '//cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.9/index.global.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '//cdn.jsdelivr.net/npm/@fullcalendar/daygrid@5.11.5/main.min.css',
+                ],
+                // Bootstrap 5 plugin.
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '//cdn.jsdelivr.net/npm/@fullcalendar/bootstrap5@5.11.5/index.global.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '//cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '//cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css',
+                ],
+            ],
+        ],
+
+
     ],
 
     /*
