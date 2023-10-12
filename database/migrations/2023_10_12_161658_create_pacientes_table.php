@@ -15,8 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('apellido');
-            $table->string('email');
-            $table->string('telefono');
+            $table->date('fecha_nacimiento');
+            //$table->string('genero')->nullable();
+            //$table->string('telefono');
+            $table->string('correo_electronico');
+            $table->string('nombre_contacto_emergencia')->nullable();
+            $table->string('contacto_emergencia')->nullable();
+
             $table->timestamps();
         });
     }
