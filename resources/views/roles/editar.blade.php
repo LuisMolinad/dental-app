@@ -1,7 +1,7 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 
 @section('title', 'Editar Rol')
-<link rel="shortcut icon" href="{{ asset('./img/icono1.png') }}">
+
 
 @section('content_header')
     <h1 class="m-0 text-dark">Editar Rol</h1>
@@ -69,38 +69,4 @@
             </div>
         </div>
     </div>
-@stop
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
-
-@section('js')
-    <!-- Librerias para las data tables -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#articulos').DataTable({
-                "lengthMenu": [
-                    [5, 10, 25, -1],
-                    [5, 10, 25, "Todos"]
-                ],
-                "language": {
-                    "lengthMenu": "Mostrar _MENU_ records por página",
-                    "zeroRecords": "No se encuentran datos relacionados - ",
-                    "info": "Mostrando página _PAGE_ de _PAGES_",
-                    "infoEmpty": "No hay registros disponibles ",
-                    "infoFiltered": "(filtrado de _MAX_ registros totales)",
-                    'search': 'Buscar',
-                    'paginate': {
-                        'first': 'Primero',
-                        'last': 'Ultimo',
-                        'next': 'Siguiente',
-                        'previous': 'Anterior',
-                    },
-
-                },
-            });
-        });
-    </script>
 @stop

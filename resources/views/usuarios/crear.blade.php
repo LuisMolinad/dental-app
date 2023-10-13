@@ -1,8 +1,7 @@
-@extends('adminlte::page')
-<link rel="shortcut icon" href="{{ asset('./img/icono1.png') }}">
+@extends('layouts.app')
+
 
 @section('title', 'Alta Usuario')
-<link rel="stylesheet" href="{{ asset('css/botton.css') }}">
 @section('content_header')
     <div class="container" style="padding-top: 1rem">
         <h1>Alta Usuario </h1>
@@ -77,14 +76,4 @@
         </div>
     </div>
 
-@stop
-
-@section('css')
-
-@stop
-
-@section('js')
-
-
-    <script></script>
 @stop

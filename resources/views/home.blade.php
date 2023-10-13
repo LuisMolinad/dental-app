@@ -1,7 +1,7 @@
-@extends('adminlte::page')
-{{-- @section('plugins.Toastr', true) --}}
-@section('title', 'AdminLTE')
-<link rel="shortcut icon" href="{{ asset('./img/icono1.png') }}">
+@extends('layouts.app')
+
+@section('title', 'Home2')
+
 @section('content_header')
 
     <h1 class="m-0 text-dark">Dashboard</h1>

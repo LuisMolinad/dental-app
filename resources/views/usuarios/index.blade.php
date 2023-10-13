@@ -1,9 +1,9 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 
 @section('title', 'Control Usuarios')
 @section('plugins.Sweetalert2', true)
-<link rel="shortcut icon" href="{{ asset('./img/icono1.png') }}">
-<script src="{{ asset('js/eliminar_sweetalert2.js') }}"></script>
+{{-- <link rel="shortcut icon" href="{{ asset('./img/icono1.png') }}"> --}}
+
 @section('content_header')
 
     <h1>Control de Usuarios </h1>
@@ -78,11 +78,8 @@
     </div>
 @stop
 
-@section('css')
-    <link rel="stylesheet" href="{{ asset('css/tabla.css') }}">
-@stop
 
-@section('js')
+@push('js')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
     <script>
@@ -118,4 +115,4 @@
 
         });
     </script>
-@stop
+@endpush

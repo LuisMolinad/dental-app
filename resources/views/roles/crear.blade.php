@@ -1,7 +1,7 @@
-@extends('adminlte::page')
+@extends('layout.app')
 
 @section('title', 'Crear Roles')
-<link rel="shortcut icon" href="{{ asset('./img/icono1.png') }}">
+{{-- <link rel="shortcut icon" href="{{ asset('./img/icono1.png') }}"> --}}
 
 @section('content_header')
     <h1 class="m-0 text-dark">Crear Rol</h1>
@@ -66,11 +66,11 @@
         </div>
     </div>
 @stop
-@section('css')
+{{-- @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
+@stop --}}
 
-@section('js')
+@push('js')
     <!-- Librerias para las data tables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
@@ -99,4 +99,4 @@
             });
         });
     </script>
-@stop
+@endpush

@@ -23,6 +23,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index2'])->name('home');
 
 Route::get('/calendar', [App\Http\Controllers\HomeController::class, 'index'])->name('homeCalendar');
 

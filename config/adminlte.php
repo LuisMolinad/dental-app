@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'Dental App V 0.3',
+    'title' => '',
     'title_prefix' => 'Dental-App:',
     'title_postfix' => '',
 
@@ -148,12 +148,12 @@ return [
     |
     */
 
-    'layout_topnav' => false,
+    'layout_topnav' => true,
     'layout_boxed' => false,
-    'layout_fixed_sidebar' => true,
-    'layout_fixed_navbar' => null,
-    'layout_fixed_footer' => true,
-    'layout_dark_mode' => null,
+    'layout_fixed_sidebar' => false,
+    'layout_fixed_navbar' => false,
+    'layout_fixed_footer' => false,
+    'layout_dark_mode' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -194,8 +194,8 @@ return [
     'classes_content' => '',
     'classes_sidebar' => 'sidebar-light elevation-4',
     'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-white navbar-light',
-    'classes_topnav_nav' => 'navbar-expand',
+    'classes_topnav' => 'navbar-white navbar-light bg-light',
+    'classes_topnav_nav' => 'navbar navbar-expand-lg',
     'classes_topnav_container' => 'container',
 
     /*
@@ -296,10 +296,10 @@ return [
             'text'         => 'search',
             'topnav_right' => true,
         ], */
-        [
+        /*  [
             'type'         => 'fullscreen-widget',
             'topnav_right' => true,
-        ],
+        ], */
 
         // Sidebar items:
         /* [
@@ -321,7 +321,7 @@ return [
         ['header' => 'account_settings'],
         [
             'text' => 'Pacientes',
-            'url'  => 'admin/settings',
+            'url'  => '/pacientes',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
@@ -367,7 +367,7 @@ return [
                 ],
             ],
         ],
-        ['header' => 'labels'],
+        /*   ['header' => 'labels'],
         [
             'text'       => 'important',
             'icon_color' => 'red',
@@ -382,7 +382,7 @@ return [
             'text'       => 'information',
             'icon_color' => 'cyan',
             'url'        => '#',
-        ],
+        ], */
     ],
 
     /*

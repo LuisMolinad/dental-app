@@ -1,12 +1,12 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 @section('title', 'Calendario')
 {{-- Plugins --}}
 @section('plugins.FullCalendar', true)
 @section('plugins.Jquery', true)
 
 
-<link rel="shortcut icon" href="{{ asset('./img/icono1.png') }}">
-<script src="{{ asset('js/calendar.js') }}"></script>
+
+
 
 
 @section('content_header')
@@ -77,4 +77,5 @@
 @stop
 
 @push('js')
+    <script src="{{ asset('js/calendar.js') }}"></script>
 @endpush
