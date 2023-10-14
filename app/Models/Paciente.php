@@ -11,5 +11,7 @@ class Paciente extends Model
 {
     use HasFactory, Notifiable;
     protected $table = 'pacientes';
-    protected $fillable = ['nombre', 'apellido', 'email', 'telefono'];
+    protected $fillable = [
+        'nombre', 'apellido', 'email', 'telefono', 'fecha_nacimiento', 'correo_electronico', 'nombre_contacto_emergencia', 'contacto_emergencia'
+    ];
 }

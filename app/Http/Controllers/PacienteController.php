@@ -35,15 +35,36 @@ class PacienteController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar el paciente creado
      */
     public function store(Request $request)
     {
-        //
+        // Validar los datos del formulario (puedes agregar validación aquí)
+
+        $data = $request->validate([
+            'nombre' => 'required|string',
+            'apellido' => 'required|string',
+            'fecha_nacimiento' => 'required|date',
+            'telefono' => 'nullable|string',
+            'correo_electronico' => 'required|email|unique:pacientes,correo_electronico', // Regla de validación personalizada
+            'nombre_contacto_emergencia' => 'nullable|string',
+            'contacto_emergencia' => 'nullable|string',
+        ], [
+            'correo_electronico.unique' => 'Este correo electrónico ya está registrado.', // Mensaje de error personalizado
+        ]);
+
+        // Crear una nueva instancia del modelo Paciente
+        $paciente = new Paciente($data);
+
+        // Guardar el paciente en la base de datos
+        $paciente->save();
+        // Retornar una respuesta JSON
+        session()->flash('toastr', ['message' => 'Paciente creado exitosamente', 'type' => 'success']);
+
+        return redirect()->route('pacientes.index');
     }
 
     /**
@@ -75,6 +96,8 @@ class PacienteController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Paciente::find($id)->delete();
+        session()->flash('toastr', ['message' => 'Paciente eliminado exitosamente', 'type' => 'error']);
+        return redirect()->route('pacientes.index');
     }
 }
