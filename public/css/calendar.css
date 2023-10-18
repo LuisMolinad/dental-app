@@ -1,0 +1,4 @@
+#calendar {
+    max-height: 610px; /* Ajusta la altura máxima según tus necesidades */
+    overflow-y: auto;  /* Agrega desplazamiento vertical si es necesario */
+}

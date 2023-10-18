@@ -53,18 +53,29 @@ class PacienteController extends Controller
             'nombre_contacto_emergencia' => 'nullable|string',
             'contacto_emergencia' => 'nullable|string',
         ], [
+            'nombre.required' => 'El campo de nombre es obligatorio.',
+            'apellido.required' => 'El campo de apellido es obligatorio.',
+            'fecha_nacimiento.required' => 'El campo de fecha de nacimiento es obligatorio.',
+            'telefono.required' => 'El campo de telefono es obligatorio.',
+            'correo_electronico.required' => 'El campo de email es obligatorio.',
             'correo_electronico.unique' => 'Este correo electrónico ya está registrado.', // Mensaje de error personalizado
         ]);
 
         // Crear una nueva instancia del modelo Paciente
         $paciente = new Paciente($data);
 
-        // Guardar el paciente en la base de datos
-        $paciente->save();
-        // Retornar una respuesta JSON
-        session()->flash('toastr', ['message' => 'Paciente creado exitosamente', 'type' => 'success']);
+        if ($paciente) {
+            // return response()->json(['success' => 'Paciente creado exitosamente']);
+            $paciente->save();
 
-        return redirect()->route('pacientes.index');
+            // Flash el mensaje de éxito
+            // session()->flash('toastr', ['message' => 'Paciente creado exitosamente', 'type' => 'success']);
+
+            // Redirigir a la vista 'pacientes.index' con el mensaje
+            // return redirect()->route('pacientes.index')->with('toastr', session('toastr'));
+        } else {
+            return response()->json(['errors' => ['general' => ['Error al crear el paciente']]], 422);
+        }
     }
 
     /**
@@ -94,9 +105,11 @@ class PacienteController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        Paciente::find($id)->delete();
+
+        $paciente = Paciente::find($id)->delete();
+        var_dump($paciente);
         session()->flash('toastr', ['message' => 'Paciente eliminado exitosamente', 'type' => 'error']);
         return redirect()->route('pacientes.index');
     }

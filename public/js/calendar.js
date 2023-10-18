@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         initialView: "dayGridMonth" /*Inicializa por medio de la vista de mes*/ ,
         locale: "es" /*Idioma espanol*/ ,
-        height: 650,
+       /*  height: 650, */
         headerToolbar: {
             left: 'prevYear,prev,next today',
             center: 'title',

@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 {{-- @section('plugins.Toastr', true) --}}
 <link rel="shortcut icon" href="{{ asset('./img/icono1.png') }}">
+{{-- @section('plugins.Jquery', true)
+ --}}
 @section('title')
     {{--  <link rel="shortcut icon" href="{{ asset('./img/icono1.png') }}"> --}}
     {{ config('adminlte.title') }}

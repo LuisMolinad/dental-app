@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layouts.app')
 
 @section('title', 'Crear Roles')
 {{-- <link rel="shortcut icon" href="{{ asset('./img/icono1.png') }}"> --}}

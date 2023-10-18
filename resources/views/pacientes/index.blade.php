@@ -1,10 +1,7 @@
 @extends('layouts.app')
 @section('plugins.Toastr', true)
-
+@section('plugins.Sweetalert2', true)
 @section('content_header')
-    @error('correo_electronico')
-        <div class="text-danger">{{ $message }}</div>
-    @enderror
     <h1 class="m-0 text-dark">Gestión de Pacientes</h1>
 @stop
 
@@ -57,13 +54,15 @@
                                                             class="btn btn-warning btn-editar">Editar</button>
                                                     </form>
 
-                                                    <form id=" EditForm{{ $paciente->id }}"
+                                                    <form id="EditForm{{ $paciente->id }}"
                                                         action="{{ route('pacientes.destroy', ['paciente' => $paciente->id]) }}"
                                                         method="post">
                                                         @csrf
                                                         {{ method_field('DELETE') }}
-                                                        <button type="submit"
-                                                            class="btn btn-danger btn-eliminar">Eliminar</button>
+                                                        <button
+                                                            onclick="return alerta_eliminar_paciente('{{ $paciente->id }}','{{ $paciente->nombre }}')"
+                                                            class="btn btn-danger btn-eliminar"
+                                                            type="submit">Eliminar</button>
                                                     </form>
 
                                                 </div>
@@ -86,14 +85,19 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Crear Paciente</h1>
+
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div class="error-messages">
+                        <!-- Aquí mostrarás los mensajes de error -->
+                    </div>
                     {{-- Formulario --}}
-                    <form id="crearPacienteForm" class="row g-3 needs-validation" action="{{ route('pacientes.store') }}"
+                    <form id="formulario-paciente" class="row g-3 needs-validation" action="{{ route('pacientes.store') }}"
                         method="post" novalidate>
                         @csrf
                         @method('POST')
+
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="nombre" class="form-label">Nombre:</label>
@@ -101,9 +105,7 @@
                                 <div class="valid-feedback">
                                     Es correcto
                                 </div>
-                                <div class="invalid-feedback">
-                                    Escriba un nombre
-                                </div>
+
                             </div>
 
                             <div class="col-md-6">
@@ -112,9 +114,7 @@
                                 <div class="valid-feedback">
                                     Es correcto
                                 </div>
-                                <div class="invalid-feedback">
-                                    Escriba un apellido
-                                </div>
+
                             </div>
                             <div class="col-md-6">
                                 <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento:</label>
@@ -123,9 +123,7 @@
                                 <div class="valid-feedback">
                                     Es correcto
                                 </div>
-                                <div class="invalid-feedback">
-                                    No puede dejar este campo vacío
-                                </div>
+
                             </div>
                         </div>
                         <div class="row">
@@ -135,9 +133,7 @@
                                     {{-- <span class="input-group-text" id="inputGroupPrepend">@</span> --}}
                                     <input type="number" class="form-control" id="telefono" name="telefono"
                                         aria-describedby="inputGroupPrepend" required>
-                                    <div class="invalid-feedback">
-                                        Escriba un teléfono
-                                    </div>
+
                                     <div class="valid-feedback">
                                         Es correcto
                                     </div>
@@ -145,13 +141,11 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="correo_electronico" class="form-label">Email:</label>
+
                                 <div class="input-group has-validation">
                                     {{-- <span class="input-group-text" id="inputGroupPrepend">@</span> --}}
                                     <input type="email" class="form-control" id="correo_electronico"
                                         name="correo_electronico" aria-describedby="inputGroupPrepend" required>
-                                    <div class="invalid-feedback">
-                                        Escriba un correo válido
-                                    </div>
                                     <div class="valid-feedback">
                                         Es correcto
                                     </div>
@@ -198,8 +192,8 @@
         $(document).ready(function() {
             $('#pacientes').DataTable({
                 "lengthMenu": [
-                    [5, 10, 25, -1],
-                    [5, 10, 25, "Todos"]
+                    [5, 10],
+                    [5, 10]
                 ],
                 "language": {
                     "lengthMenu": "Mostrar _MENU_ records por página",
@@ -249,50 +243,50 @@
                 })
         })()
     </script>
-    {{-- <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var crearPacienteForm = document.getElementById('crearPacienteForm');
+    {{-- Validar del lado del servidor --}}
+    <script>
+        $(document).ready(function() {
+            $('#formulario-paciente').submit(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        toastr.success('Paciente creado exitosamente');
 
-            crearPacienteForm.addEventListener('submit', function(event) {
-                event.preventDefault();
+                        // Redirige a la página deseada después de un breve retraso
+                        setTimeout(function() {
+                                window.location.href = '{{ route('pacientes.index') }}';
+                            },
+                            2000
+                        ); // Redirige después de 2 segundos (ajusta el tiempo según tus necesidades)
+                    },
+                    error: function(response) {
+                        // Error: La validación ha fallado, muestra los errores en el modal
+                        var errors = response.responseJSON.errors;
+                        var errorMessages = $('.error-messages');
 
-                // Agrega la validación de Bootstrap al formulario
-                if (!crearPacienteForm.checkValidity()) {
-                    event.stopPropagation();
-                    crearPacienteForm.classList.add('was-validated');
-                } else {
-                    // Recolecta los datos del formulario
-                    var formData = new FormData(crearPacienteForm);
+                        // Limpia los mensajes de error previos
+                        errorMessages.html('');
 
-                    // Realiza una solicitud AJAX
-                    fetch('pacientes', {
-                            method: 'POST',
-                            body: formData,
-                            headers: {
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute('content')
-                            }
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            // Manejar la respuesta de la solicitud AJAX
-                            if (data.success) {
-                                // Éxito: muestra un mensaje y realiza cualquier otra acción necesaria
-                                alert('Paciente creado exitosamente');
-                                // Opcional: Redirigir al usuario o cerrar el modal, etc.
-                            } else {
-                                // Error: muestra un mensaje de error o maneja el error
-                                alert('Hubo un error al crear el paciente');
-                            }
-                        })
-                        .catch(error => {
-                            console.error(error);
+                        // Recorre los errores y muéstralos en el modal
+                        $.each(errors, function(field, messages) {
+                            $('#' + field).addClass('is-invalid');
+                            $('#' + field + '-error').html(messages[0]);
+                            // Agrega el mensaje al área de errores
+                            errorMessages.append('<div class="alert alert-danger">' +
+                                messages[0] + '</div>');
                         });
-                }
+
+                        // Abre el modal con los errores
+                        $('#citaModal').modal('show');
+                    }
+                });
             });
         });
-    </script> --}}
-
+    </script>
+    {{-- Check Box para campos opcional --}}
     <script>
         const chkContactoEmergencia = document.getElementById('chkContactoEmergencia');
         const nombre_contacto_emergencia = document.getElementById('nombre_contacto_emergencia');
@@ -308,4 +302,5 @@
             }
         });
     </script>
+    <script src="{{ asset('js/paciente.js') }}"></script>
 @endpush
