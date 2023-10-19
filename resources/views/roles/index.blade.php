@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Gestion Roles')
-
+@section('plugins.Datatables', true)
 @section('content_header')
     <h1 class="m-0 text-dark">Gestion Roles</h1>
 @stop
@@ -11,10 +11,10 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="table-responsive-sm container-fluid contenedor">
+                    <div class="table-responsive-sm container-fluid">
                         {{-- Notificaciones --}}
                         {{--       @include('layouts.notificacion') --}}
-                        <table class="table table-striped" id="roles">
+                        <table class="table table-striped" id="roles" style="width:100%">
                             <thead>
                                 <tr>
                                     <th scope="col" style="text-align: center">ROL</th>
@@ -63,11 +63,11 @@
 
 @push('js')
     <!-- Librerias para las data tables -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+
     <script>
         $(document).ready(function() {
             $('#roles').DataTable({
+                responsive: true,
                 "lengthMenu": [
                     [5, 10, 25, -1],
                     [5, 10, 25, "Todos"]

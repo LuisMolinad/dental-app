@@ -419,26 +419,54 @@ return [
     |
     */
 
-    'plugins' => [
+    /*
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css" />
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+    */
 
+    'plugins' => [
+        //Si pongo true en active es para que cargue por defecto en todas las vistas
+        'Jquery' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/jquery/jquery.min.js',
+                ],
+            ],
+        ],
         'Datatables' => [
             'active' => false,
             'files' => [
                 [
-                    'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js',
-                ],
-                [
-                    'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js',
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/css/jquery.dataTables.min.css',
                 ],
                 [
                     'type' => 'css',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/css/responsive.dataTables.min.css',
                 ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => 'vendor/datatables/js/jquery-3.7.0.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/js/jquery.dataTables.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/js/dataTables.responsive.min.js',
+                ]
             ],
         ],
         'Select2' => [
@@ -488,16 +516,6 @@ return [
                     'type' => 'js',
                     'asset' => true,
                     'location' => 'vendor/toastr/toastr.min.js',
-                ],
-            ],
-        ],
-        'Jquery' => [
-            'active' => true,
-            'files' => [
-                [
-                    'type' => 'js',
-                    'asset' => true,
-                    'location' => 'vendor/jquery/jquery.min.js',
                 ],
             ],
         ],
