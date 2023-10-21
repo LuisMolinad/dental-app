@@ -89,17 +89,56 @@ class PacienteController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $paciente = Paciente::find($id);
+        return response()->json($paciente);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+
+
+        // Valida los datos enviados en la solicitud (puedes personalizar las reglas de validación)
+        $request->validate([
+
+            'telefono' => 'nullable|string',
+            'correo_electronico' => 'required|email|unique:pacientes,correo_electronico,' . $id, // Verifica que el correo sea único excluyendo el paciente actual
+            'nombre_contacto_emergencia' => 'nullable|string',
+            'contacto_emergencia' => 'nullable|string'
+        ], [
+
+
+            'telefono.required' => 'El campo de telefono es obligatorio.',
+            'correo_electronico.required' => 'El campo de email es obligatorio.',
+            'correo_electronico.unique' => 'Este correo electrónico ya está registrado.', // Mensaje de error personalizado
+        ]);
+
+        // Encuentra el paciente que se va a actualizar
+        $paciente = Paciente::find($id);
+
+        if (!$paciente) {
+            // Manejar el caso en que el paciente no se encuentra
+            return response()->json(['error' => 'Paciente no encontrado'], 404);
+        }
+
+        // Actualiza los atributos del paciente con los nuevos valores
+        $paciente->nombre = $request->input('nombre');
+        $paciente->apellido = $request->input('apellido');
+        $paciente->fecha_nacimiento = $request->input('fecha_nacimiento');
+        $paciente->telefono = $request->input('telefono');
+        $paciente->correo_electronico = $request->input('correo_electronico');
+        $paciente->correo_electronico = $request->input('correo_electronico');
+        $paciente->correo_electronico = $request->input('correo_electronico');
+
+        // Guarda los cambios en la base de datos
+        $paciente->save();
+
+        // Devuelve una respuesta exitosa
+        return response()->json(['message' => 'Paciente actualizado correctamente'], 200);
     }
 
     /**

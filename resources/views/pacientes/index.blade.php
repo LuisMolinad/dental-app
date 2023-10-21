@@ -1,7 +1,11 @@
 @extends('layouts.app')
+@section('title', 'Gestión Pacientes')
 @section('plugins.Toastr', true)
 @section('plugins.Sweetalert2', true)
 @section('plugins.Datatables', true)
+@push('css')
+    <link rel="stylesheet" href="{{ asset('css/button.css') }}">
+@endpush
 @section('content_header')
     <h1 class="m-0 text-dark">Gestión de Pacientes</h1>
 @stop
@@ -26,7 +30,7 @@
                             <table id="pacientes" class="table table-striped" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th style="display:none">ID </th>
+                                        {{--  <th style="display:none">ID </th> --}}
                                         <th scope="col" style="text-align: center">Nombre</th>
                                         <th scope="col" style="text-align: center">Apellido</th>
                                         <th scope="col" style="text-align: center">Edad</th>
@@ -38,7 +42,7 @@
                                 <tbody>
                                     @foreach ($pacientes as $paciente)
                                         <tr>
-                                            <td id="idPaciente" style="display:none">{{ $paciente->id }}</td>
+                                            {{--  <td id="idPaciente" style="display:none">{{ $paciente->id }}</td> --}}
                                             <td id="nombrePaciente" style="text-align: center">{{ $paciente->nombre }}</td>
                                             <td id="apellidoPaciente" style="text-align: center">{{ $paciente->apellido }}
                                             </td>
@@ -49,12 +53,10 @@
                                             <td id="correoPaciente" style="text-align: center">
                                                 {{ $paciente->correo_electronico }}</td>
                                             <td id="acciones" style="text-align: center">
-                                                <div class="btn-group btn-group-sm">
-                                                    <form action="{{-- {{ route('pacientes.edit', $paciente->id) }} --}}" method="GET">
-                                                        @csrf
-                                                        <button type="submit"
-                                                            class="btn btn-warning btn-editar">Editar</button>
-                                                    </form>
+                                                <div class="btn-group" role="group">
+
+                                                    <button type="button" class="btn btn-warning btn-editar"
+                                                        value="{{ $paciente->id }}">Editar</button>
 
                                                     <form id="EditForm{{ $paciente->id }}"
                                                         action="{{ route('pacientes.destroy', ['paciente' => $paciente->id]) }}"
@@ -133,7 +135,7 @@
                                 <label for="telefono" class="form-label">Teléfono:</label>
                                 <div class="input-group has-validation">
                                     {{-- <span class="input-group-text" id="inputGroupPrepend">@</span> --}}
-                                    <input type="number" class="form-control" id="telefono" name="telefono"
+                                    <input type="text" class="form-control" id="telefono" name="telefono"
                                         aria-describedby="inputGroupPrepend" required>
 
                                     <div class="valid-feedback">
@@ -169,7 +171,7 @@
 
                         <div class="col-md-6">
                             <label for="contacto_emergencia" class="form-label">Teléfono del contacto:</label>
-                            <input type="number" class="form-control" id="contacto_emergencia" disabled>
+                            <input type="text" class="form-control" id="contacto_emergencia" disabled>
                         </div>
 
                         <div class="modal-footer col-12">
@@ -184,104 +186,109 @@
         </div>
     </div>
     {{-- FIN Modal --}}
-    {{-- Modal editar --}}
+
+    {{-- TODO Modal editar --}}
     <div class="modal fade" id="pacienteModalEditar" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Crear Paciente</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Paciente</h1>
 
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="error-messages">
+                    <div class="error-messagesEdit">
                         <!-- Aquí mostrarás los mensajes de error -->
                     </div>
                     {{-- Formulario --}}
-                    <form id="formulario-paciente" class="row g-3 needs-validation"
-                        action="{{ route('pacientes.store') }}" method="post" novalidate>
-                        @csrf
-                        @method('POST')
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label for="nombre" class="form-label">Nombre:</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" required>
-                                <div class="valid-feedback">
-                                    Es correcto
-                                </div>
 
-                            </div>
 
-                            <div class="col-md-6">
-                                <label for="apellido" class="form-label">Apellido:</label>
-                                <input type="text" class="form-control" id="apellido" name="apellido" required>
-                                <div class="valid-feedback">
-                                    Es correcto
-                                </div>
-
-                            </div>
-                            <div class="col-md-6">
-                                <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento:</label>
-                                <input type="date" class="form-control" id="fecha_nacimiento"
-                                    name="fecha_nacimiento"required>
-                                <div class="valid-feedback">
-                                    Es correcto
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label for="telefono" class="form-label">Teléfono:</label>
-                                <div class="input-group has-validation">
-                                    {{-- <span class="input-group-text" id="inputGroupPrepend">@</span> --}}
-                                    <input type="number" class="form-control" id="telefono" name="telefono"
-                                        aria-describedby="inputGroupPrepend" required>
-
-                                    <div class="valid-feedback">
-                                        Es correcto
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="correo_electronico" class="form-label">Email:</label>
-
-                                <div class="input-group has-validation">
-                                    {{-- <span class="input-group-text" id="inputGroupPrepend">@</span> --}}
-                                    <input type="email" class="form-control" id="correo_electronico"
-                                        name="correo_electronico" aria-describedby="inputGroupPrepend" required>
-                                    <div class="valid-feedback">
-                                        Es correcto
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="chkContactoEmergencia">
-                                <label class="form-check-label" for="chkContactoEmergencia">
-                                    ¿Tiene un contacto de emergencia?
-                                </label>
-                            </div>
-                        </div>
+                    <div class="row">
+                        <input id="idPaciente" class="form-control" id="nombreEdit" name="idPaciente" readonly required>
                         <div class="col-md-6">
-                            <label for="nombre_contacto_emergencia" class="form-label">Nombre del contacto:</label>
-                            <input type="text" class="form-control" id="nombre_contacto_emergencia" disabled>
+
+                            <label for="nombreEdit" class="form-label">Nombre:</label>
+                            <input type="text" class="form-control" id="nombreEdit" name="nombreEdit" readonly
+                                required>
+                            <div class="valid-feedback">
+                                Es correcto
+                            </div>
+
                         </div>
 
                         <div class="col-md-6">
-                            <label for="contacto_emergencia" class="form-label">Teléfono del contacto:</label>
-                            <input type="number" class="form-control" id="contacto_emergencia" disabled>
-                        </div>
+                            <label for="apellidoEdit" class="form-label">Apellido:</label>
+                            <input type="text" class="form-control" id="apellidoEdit" name="apellidoEdit" readonly
+                                required>
+                            <div class="valid-feedback">
+                                Es correcto
+                            </div>
 
-                        <div class="modal-footer col-12">
-                            <button type="button" class="btn btn-secondary float-right"
-                                data-bs-dismiss="modal">Cancelar</button>
-                            <button class="btn btn-success float-right" type="submit">Guardar Paciente</button>
                         </div>
-                    </form>
+                        <div class="col-md-6">
+                            <label for="fecha_nacimientoEdit" class="form-label">Fecha de Nacimiento:</label>
+                            <input type="date" class="form-control" id="fecha_nacimientoEdit"
+                                name="fecha_nacimientoEdit" readonly required>
+                            <div class="valid-feedback">
+                                Es correcto
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="telefonoEdit" class="form-label">Teléfono:</label>
+                            <div class="input-group has-validation">
+                                {{-- <span class="input-group-text" id="inputGroupPrepend">@</span> --}}
+                                <input type="text" class="form-control" id="telefonoEdit" name="telefonoEdit"
+                                    aria-describedby="inputGroupPrepend" required>
+
+                                <div class="valid-feedback">
+                                    Es correcto
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="correo_electronico" class="form-label">Email:</label>
+
+                            <div class="input-group has-validation">
+                                {{-- <span class="input-group-text" id="inputGroupPrepend">@</span> --}}
+                                <input type="email" class="form-control" id="correo_electronicoEdit"
+                                    name="correo_electronicoEdit" aria-describedby="inputGroupPrepend" required>
+                                <div class="valid-feedback">
+                                    Es correcto
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="chkContactoEmergenciaEdit">
+                            <label class="form-check-label" for="chkContactoEmergenciaEdit">
+                                ¿Tiene un contacto de emergencia?
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="nombre_contacto_emergenciaEdit" class="form-label">Nombre del contacto:</label>
+                        <input type="text" class="form-control" id="nombre_contacto_emergenciaEdit" disabled>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="contacto_emergenciaEdit" class="form-label">Teléfono del contacto:</label>
+                        <input type="text" class="form-control" id="contacto_emergenciaEdit" disabled>
+                    </div>
+
+                    <div class="modal-footer col-12">
+                        <button type="button" class="btn btn-secondary float-right"
+                            data-bs-dismiss="modal">Cancelar</button>
+                        <button id="btn-actualizar" class="btn btn-success float-right btn-actualizar"
+                            type="submit">Actualizar
+                            Paciente</button>
+                    </div>
+
                     {{-- Fin formulario --}}
                 </div>
             </div>
@@ -390,7 +397,7 @@
             });
         });
     </script>
-    {{-- Check Box para campos opcional --}}
+    {{-- Check Box para campos opcional Crear Paciente --}}
     <script>
         const chkContactoEmergencia = document.getElementById('chkContactoEmergencia');
         const nombre_contacto_emergencia = document.getElementById('nombre_contacto_emergencia');
@@ -406,5 +413,125 @@
             }
         });
     </script>
+
+    {{-- **Check Box para campos opcional Editar Paciente --}}
+    <script>
+        const chkContactoEmergenciaEdit = document.getElementById('chkContactoEmergenciaEdit');
+        const nombre_contacto_emergenciaEdit = document.getElementById('nombre_contacto_emergenciaEdit');
+        const contacto_emergenciaEdit = document.getElementById('contacto_emergenciaEdit');
+
+        chkContactoEmergenciaEdit.addEventListener('change', function() {
+            if (chkContactoEmergenciaEdit.checked) {
+                nombre_contacto_emergenciaEdit.disabled = false;
+                contacto_emergenciaEdit.disabled = false;
+            } else {
+                nombre_contacto_emergenciaEdit.disabled = true;
+                contacto_emergenciaEdit.disabled = true;
+            }
+        });
+    </script>
+
+    {{-- **Archivo con la estructura de sweetAlert2 --}}
     <script src="{{ asset('js/paciente.js') }}"></script>
+
+
+    {{-- **Consulta ajax para ruta edit y cargar datos al modal --}}
+    <script>
+        // Cuando se hace clic en el botón "Editar"
+        $(document).on('click', '.btn-editar', function() {
+            var paciente = $(this).val();
+            console.log(paciente);
+            // Define la URL directamente
+            var url = "/pacientes/" + paciente + "/edit";
+            console.log(url);
+            // Realizar una solicitud Ajax para obtener los datos del paciente
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function(data) {
+                    console.log(data);
+                    console.log(data.nombre);
+                    console.log(data.telefono);
+
+                    // Llenar los campos del modal con los datos del paciente
+                    $('#idPaciente').val(data.id);
+                    $('#nombreEdit').val(data.nombre);
+                    $('#apellidoEdit').val(data.apellido);
+                    $('#fecha_nacimientoEdit').val(data.fecha_nacimiento);
+                    $('#telefonoEdit').val(data.telefono);
+                    $('#correo_electronicoEdit').val(data.correo_electronico);
+                    $('#nombre_contacto_emergenciaEdit').val(data.nombre_contacto_emergencia);
+                    $('#contacto_emergenciaEdit').val(data.contacto_emergencia);
+                    // Abre el modal de edición
+                    $('#pacienteModalEditar').modal('show');
+                }
+            });
+        });
+    </script>
+
+    {{-- **Funcion para actualizar la información del paciente --}}
+    <script>
+        // Agregar un manejador de eventos al botón "Actualizar"
+        $(document).on('click', '.btn-actualizar', function() {
+            var paciente = $('#idPaciente').val();
+            var csrfToken = $('input[name="_token"]').val();
+
+            var newData = {
+                paciente: $('#idPaciente').val(),
+                nombre: $('#nombreEdit').val(),
+                apellido: $('#apellidoEdit').val(),
+                fecha_nacimiento: $('#fecha_nacimientoEdit').val(),
+                telefono: $('#telefonoEdit').val(),
+                correo_electronico: $('#correo_electronicoEdit').val(),
+                nombre_contacto_emergencia: $('#nombre_contacto_emergenciaEdit').val(),
+                contacto_emergencia: $('#contacto_emergenciaEdit').val()
+            };
+            console.log(newData);
+            // Realizar una solicitud AJAX para actualizar los datos
+            $.ajax({
+                type: 'PUT', // Cambia esto al método HTTP correcto (PUT o PATCH)
+                url: '/pacientes/' + paciente, // Ajusta la URL según tu estructura de rutas
+                data: {
+                    _token: csrfToken, // Incluye el token CSRF en los datos
+                    newData // Resto de tus datos de la solicitud
+                },
+                success: function(response) {
+                    // Actualizar la información mostrada en el modal
+                    $('#nombrePaciente').text(newData.nombre);
+                    $('#apellidoPaciente').text(newData.apellido);
+                    $('#telefono').text(newData.telefono);
+                    $('#correo_electronico').text(newData.correo_electronico);
+                    $('#nombre_contacto_emergencia').text(newData.nombre_contacto_emergencia);
+                    $('#contacto_emergencia').text(newData.contacto_emergencia);
+                    // Actualiza otros campos según sea necesario
+
+                    // Cierra el modal
+                    $('#pacienteModalEditar').modal('hide');
+
+                    // Agrega una notificación o mensaje de éxito si lo deseas
+                    toastr.success('Datos actualizados correctamente');
+                },
+                error: function(response) {
+                    // Error: La validación ha fallado, muestra los errores en el modal
+                    var errors = response.responseJSON.errors;
+                    var errorMessages = $('.error-messagesEdit');
+
+                    // Limpia los mensajes de error previos
+                    errorMessages.html('');
+
+                    // Recorre los errores y muéstralos en el modal
+                    $.each(errors, function(field, messages) {
+                        $('#' + field).addClass('is-invalid');
+                        $('#' + field + '-error').html(messages[0]);
+                        // Agrega el mensaje al área de errores
+                        errorMessages.append('<div class="alert alert-danger">' +
+                            messages[0] + '</div>');
+                    });
+
+                    // Abre el modal con los errores
+                    $('#pacienteModalEditar').modal('show');
+                }
+            });
+        });
+    </script>
 @stop
