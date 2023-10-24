@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Paciente;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class PacienteController extends Controller
 {
@@ -98,21 +99,17 @@ class PacienteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $paciente)
     {
-
-
+        $id = $paciente;
         // Valida los datos enviados en la solicitud (puedes personalizar las reglas de validación)
         $request->validate([
-
-            'telefono' => 'nullable|string',
-            'correo_electronico' => 'required|email|unique:pacientes,correo_electronico,' . $id, // Verifica que el correo sea único excluyendo el paciente actual
+            'telefono' => 'required|string',
+            'correo_electronico' => 'required|email|unique:pacientes,correo_electronico,' . $id,
             'nombre_contacto_emergencia' => 'nullable|string',
-            'contacto_emergencia' => 'nullable|string'
+            'contacto_emergencia' => 'nullable|string',
         ], [
-
-
-            'telefono.required' => 'El campo de telefono es obligatorio.',
+            'telefono.required' => 'El campo de teléfono es obligatorio.',
             'correo_electronico.required' => 'El campo de email es obligatorio.',
             'correo_electronico.unique' => 'Este correo electrónico ya está registrado.', // Mensaje de error personalizado
         ]);
@@ -126,13 +123,13 @@ class PacienteController extends Controller
         }
 
         // Actualiza los atributos del paciente con los nuevos valores
-        $paciente->nombre = $request->input('nombre');
-        $paciente->apellido = $request->input('apellido');
-        $paciente->fecha_nacimiento = $request->input('fecha_nacimiento');
+        //  $paciente->nombre = $request->input('nombre');
+        //  $paciente->apellido = $request->input('apellido');
+        //  $paciente->fecha_nacimiento = $request->input('fecha_nacimiento');
         $paciente->telefono = $request->input('telefono');
         $paciente->correo_electronico = $request->input('correo_electronico');
-        $paciente->correo_electronico = $request->input('correo_electronico');
-        $paciente->correo_electronico = $request->input('correo_electronico');
+        $paciente->nombre_contacto_emergencia = $request->input('nombre_contacto_emergencia');
+        $paciente->contacto_emergencia = $request->input('contacto_emergencia');
 
         // Guarda los cambios en la base de datos
         $paciente->save();

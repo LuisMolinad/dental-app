@@ -3,6 +3,9 @@
 @section('plugins.Toastr', true)
 @section('plugins.Sweetalert2', true)
 @section('plugins.Datatables', true)
+
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 @push('css')
     <link rel="stylesheet" href="{{ asset('css/button.css') }}">
 @endpush
@@ -469,49 +472,72 @@
         });
     </script>
 
-    {{-- **Funcion para actualizar la información del paciente --}}
+    {{-- **Funcion para actualizar UPDATE la información del paciente --}}
     <script>
         // Agregar un manejador de eventos al botón "Actualizar"
         $(document).on('click', '.btn-actualizar', function() {
-            var paciente = $('#idPaciente').val();
-            var csrfToken = $('input[name="_token"]').val();
+            var paciente = parseInt($('#idPaciente').val());
 
-            var newData = {
-                paciente: $('#idPaciente').val(),
-                nombre: $('#nombreEdit').val(),
-                apellido: $('#apellidoEdit').val(),
-                fecha_nacimiento: $('#fecha_nacimientoEdit').val(),
-                telefono: $('#telefonoEdit').val(),
-                correo_electronico: $('#correo_electronicoEdit').val(),
-                nombre_contacto_emergencia: $('#nombre_contacto_emergenciaEdit').val(),
-                contacto_emergencia: $('#contacto_emergenciaEdit').val()
-            };
-            console.log(newData);
+
+            /*  var newData = {
+                 nombre: $('#nombreEdit').val(),
+                 apellido: $('#apellidoEdit').val(),
+                 fecha_nacimiento: $('#fecha_nacimientoEdit').val(),
+                 telefono: $('#telefonoEdit').val(),
+                 correo_electronico: $('#correo_electronicoEdit').val(),
+                 nombre_contacto_emergencia: $('#nombre_contacto_emergenciaEdit').val(),
+                 contacto_emergencia: $('#contacto_emergenciaEdit').val()
+             }; */
+            var nombre = $('#nombreEdit').val();
+            var apellido = $('#apellidoEdit').val();
+            var fecha_nacimiento = $('#fecha_nacimientoEdit').val();
+            var telefono = $('#telefonoEdit').val();
+            var correo_electronico = $('#correo_electronicoEdit').val();
+            var nombre_contacto_emergencia = $('#nombre_contacto_emergenciaEdit').val();
+            var contacto_emergencia = $('#contacto_emergenciaEdit').val();
+            // console.log(newData);
             // Realizar una solicitud AJAX para actualizar los datos
             $.ajax({
-                type: 'PUT', // Cambia esto al método HTTP correcto (PUT o PATCH)
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'PATCH', // Cambia esto al método HTTP correcto (PUT o PATCH)
                 url: '/pacientes/' + paciente, // Ajusta la URL según tu estructura de rutas
                 data: {
-                    _token: csrfToken, // Incluye el token CSRF en los datos
-                    newData // Resto de tus datos de la solicitud
+                    /* // Incluye el token CSRF en los datos
+                    newData // Resto de tus datos de la solicitud */
+                    nombre: nombre,
+                    fecha_nacimiento: fecha_nacimiento,
+                    telefono: telefono,
+                    correo_electronico: correo_electronico,
+                    nombre_contacto_emergencia: nombre_contacto_emergencia,
+                    contacto_emergencia: contacto_emergencia
+
                 },
                 success: function(response) {
                     // Actualizar la información mostrada en el modal
-                    $('#nombrePaciente').text(newData.nombre);
-                    $('#apellidoPaciente').text(newData.apellido);
-                    $('#telefono').text(newData.telefono);
-                    $('#correo_electronico').text(newData.correo_electronico);
-                    $('#nombre_contacto_emergencia').text(newData.nombre_contacto_emergencia);
-                    $('#contacto_emergencia').text(newData.contacto_emergencia);
+                    $('#nombreEdit').text(nombre);
+                    $('#apellidoEdit').text(apellido);
+                    $('#telefonoEdit').text(telefono);
+                    $('#correo_electronicoEdit').text(correo_electronico);
+                    $('#nombre_contacto_emergenciaEdit').text(nombre_contacto_emergencia);
+                    $('#contacto_emergenciaEdit').text(contacto_emergencia);
                     // Actualiza otros campos según sea necesario
 
                     // Cierra el modal
-                    $('#pacienteModalEditar').modal('hide');
+                    /*   $('#pacienteModalEditar').modal('hide'); */
 
                     // Agrega una notificación o mensaje de éxito si lo deseas
                     toastr.success('Datos actualizados correctamente');
+                    // Redirige a la página deseada después de un breve retraso
+                    setTimeout(function() {
+                            window.location.href = '{{ route('pacientes.index') }}';
+                        },
+                        1000
+                    ); // Redirige después de 1 segundos 
                 },
                 error: function(response) {
+                    /*  console.log(newData); */
                     // Error: La validación ha fallado, muestra los errores en el modal
                     var errors = response.responseJSON.errors;
                     var errorMessages = $('.error-messagesEdit');

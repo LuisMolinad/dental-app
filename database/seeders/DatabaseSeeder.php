@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         //aca se agregan los seeders que quiero que corran 
         $this->call([RolesAndPermissionSeeder::class]);
         $this->call([SuperAdminSeeder::class]);
+        $this->call([PacienteSeeder::class]);
     }
 }
