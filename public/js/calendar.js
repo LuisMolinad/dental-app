@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Puedes acceder a la fecha haciendo info.date
             var fechaSeleccionada = info.date;
-            alert(fechaSeleccionada);
+           /*  alert(fechaSeleccionada); */
         }
         
     });
