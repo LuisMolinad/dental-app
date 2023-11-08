@@ -37,5 +37,6 @@
 
 @section('js')
     @yield('js')
+    <script src="https://kit.fontawesome.com/c662e065a6.js" crossorigin="anonymous"></script>
     <script src="{{ asset('js/eliminar_sweetalert2.js') }}"></script>
 @stop

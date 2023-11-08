@@ -7,7 +7,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('css/button.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pacientes.css') }}">
 @endpush
 @section('content_header')
     <h1 class="m-0 text-dark">Gestión de Pacientes</h1>
@@ -46,7 +46,11 @@
                                     @foreach ($pacientes as $paciente)
                                         <tr>
                                             {{--  <td id="idPaciente" style="display:none">{{ $paciente->id }}</td> --}}
-                                            <td id="nombrePaciente" style="text-align: center">{{ $paciente->nombre }}</td>
+                                            <td style="text-align: center">
+                                                <a href="{{-- {{ route('nombre.ruta.destino', ['id' => $paciente->id]) }} --}}">
+                                                    {{ $paciente->nombre }}
+                                                </a>
+                                            </td>
                                             <td id="apellidoPaciente" style="text-align: center">{{ $paciente->apellido }}
                                             </td>
                                             <td id="edadPaciente" style="text-align: center">
@@ -57,9 +61,13 @@
                                                 {{ $paciente->correo_electronico }}</td>
                                             <td id="acciones" style="text-align: center">
                                                 <div class="btn-group" role="group">
-
-                                                    <button type="button" class="btn btn-warning btn-editar"
-                                                        value="{{ $paciente->id }}">Editar</button>
+                                                    {{-- href al historial clinico --}}
+                                                    <a href="" class="btn btn-outline-warning"
+                                                        title="Historial Clínico"> <i class="fa-solid fa-file-medical"
+                                                            style="color: #fa0000;"></i></a>
+                                                    <button type="button" class="btn btn-info btn-editar"
+                                                        value="{{ $paciente->id }}" title="Ver información del paciente"><i
+                                                            class="fa-regular fa-eye" style="color: #ffffff;"></i> </button>
 
                                                     <form id="EditForm{{ $paciente->id }}"
                                                         action="{{ route('pacientes.destroy', ['paciente' => $paciente->id]) }}"
@@ -68,8 +76,9 @@
                                                         {{ method_field('DELETE') }}
                                                         <button
                                                             onclick="return alerta_eliminar_paciente('{{ $paciente->id }}','{{ $paciente->nombre }}')"
-                                                            class="btn btn-danger btn-eliminar"
-                                                            type="submit">Eliminar</button>
+                                                            class="btn btn-danger btn-eliminar" type="submit"
+                                                            title="Eliminar Paciente"><i class="fa-solid fa-trash-can"
+                                                                style="color: #ffffff;"></i></button>
                                                     </form>
 
                                                 </div>
@@ -196,7 +205,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Paciente</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Información Paciente</h1>
 
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -209,7 +218,8 @@
 
 
                     <div class="row">
-                        <input id="idPaciente" class="form-control" id="nombreEdit" name="idPaciente" readonly required>
+                        <input id="idPaciente" class="form-control" id="nombreEdit" style="display: none"
+                            name="idPaciente" readonly required>
                         <div class="col-md-6">
 
                             <label for="nombreEdit" class="form-label">Nombre:</label>
@@ -301,6 +311,7 @@
 @stop
 
 @section('js')
+    <script src="https://kit.fontawesome.com/c662e065a6.js" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
             $('#pacientes').DataTable({

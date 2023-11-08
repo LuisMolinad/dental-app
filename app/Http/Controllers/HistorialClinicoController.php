@@ -12,7 +12,8 @@ class HistorialClinicoController extends Controller
      */
     public function index()
     {
-        //
+
+        return view('pacientes.historialClinico.index');
     }
 
     /**
@@ -42,7 +43,7 @@ class HistorialClinicoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(historialClinico $historialClinico)
+    public function edit(string $id)
     {
         //
     }

@@ -325,9 +325,9 @@ return [
             'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
+            'text' => 'Historiales Clínicos',
+            'url'  => '/historialClinico',
+            'icon' => 'fa-solid fa-folder-open',
         ],
         [
             'text'    => 'multilevel',

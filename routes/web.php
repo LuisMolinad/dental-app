@@ -1,12 +1,13 @@
 <?php
 
+use App\Http\Controllers\HistorialClinicoController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\PacienteController;
-
+use App\Models\historialClinico;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,4 +38,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('roles', RolController::class);
     Route::resource('usuarios', UsuarioController::class);
     Route::resource('pacientes', PacienteController::class);
+
+    Route::get('historialClinico', [HistorialClinicoController::class, 'index'])->name('historial_clinico.index');
+    /*  Route::get('pacientes/historialClinico/{id}', [HistorialClinicoController::class, 'show'])->name('historial_clinico'); */
 });

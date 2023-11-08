@@ -1,0 +1,28 @@
+.btn-mi-estilo, .btn-success {
+   
+    padding: 10px 20px;
+    border-radius: 25px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin-bottom: 10px;
+}
+.btn-secondary{
+    border-radius: 25px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin-bottom: 10px;
+}
+.btn-info, .btn-eliminar, .btn-outline-warning  {
+    width:  min-content;
+    height: min-content;
+}
+/* .btn-eliminar {
+    width:  min-content;
+    height: min-content;
+} */
+
+
+/* .btn-secondary {
+    width: 120px;
+    height: min-content;
+} */
