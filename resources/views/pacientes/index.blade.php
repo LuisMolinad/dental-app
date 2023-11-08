@@ -46,10 +46,7 @@
                                     @foreach ($pacientes as $paciente)
                                         <tr>
                                             {{--  <td id="idPaciente" style="display:none">{{ $paciente->id }}</td> --}}
-                                            <td style="text-align: center">
-                                                <a href="{{-- {{ route('nombre.ruta.destino', ['id' => $paciente->id]) }} --}}">
-                                                    {{ $paciente->nombre }}
-                                                </a>
+                                            <td style="text-align: center">{{ $paciente->nombre }}
                                             </td>
                                             <td id="apellidoPaciente" style="text-align: center">{{ $paciente->apellido }}
                                             </td>
